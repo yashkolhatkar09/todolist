@@ -1,0 +1,28 @@
+body {
+  background-color: #303030;
+}
+
+input {
+  height: 37px;
+  border-radius: 2px;
+  border-color: grey;
+  border-width: 1px;
+  padding-left: 10px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+.grid {
+  color: white;
+  display: grid;
+  grid-template-columns: 200px 150px 100px;
+  column-gap: 20px;
+  row-gap: 10px;
+  margin-top: 10px;
+  margin-left: 7px;
+}
+
+.btn-success,
+.btn-danger {
+  width: 5rem;
+}
