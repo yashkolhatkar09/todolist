@@ -6,6 +6,7 @@ export default class Box extends Component {
     this.state = {
       index: 0,
       todo: "",
+      time: "",
       date: "",
       todotext: [],
     };
@@ -18,6 +19,12 @@ export default class Box extends Component {
     // console.log(event);
   };
 
+  TakeInputTime = (event) => {
+    this.setState({
+      time: event.target.value,
+    });
+  };
+
   TakeInputDate = (event) => {
     this.setState({
       date: event.target.value,
@@ -25,19 +32,23 @@ export default class Box extends Component {
   };
 
   Log = () => {
-    const { todo, date, index } = this.state;
+    let { todo, time, date, index } = this.state;
 
     if (todo.trim() === "") {
       return;
     }
 
-    const [year, month, day] = date.split("-");
+    if (date !== "") {
+      const [year, month, day] = date.split("-");
+      var reverseDate = `${day}-${month}-${year}`;
+    }
 
-    const reverseDate = `${day}-${month}-${year}`;
+    // console.log(typeof date);
 
     const newTodoItem = {
       todo,
-      date : reverseDate,
+      time,
+      date: reverseDate,
       index: this.state.index,
     };
 
@@ -74,6 +85,16 @@ export default class Box extends Component {
             <div className="col">
               {" "}
               <input
+                id="appt-time"
+                type="time"
+                name="appt-time"
+                value={this.state.time}
+                onChange={this.TakeInputTime}
+              />
+            </div>
+            <div className="col">
+              {" "}
+              <input
                 type="date"
                 onChange={this.TakeInputDate}
                 className="js-date-box css-date-box"
@@ -97,6 +118,7 @@ export default class Box extends Component {
           {this.state.todotext.map((todo, index) => (
             <div key={index} className="grid">
               <div className="col1">{todo.todo}</div>
+              <div className="col1">{todo.time}</div>
               <div className="col1">{todo.date}</div>
               <div className="col1">
                 <button

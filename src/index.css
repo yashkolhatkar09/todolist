@@ -11,11 +11,10 @@ input {
   padding-bottom: 4px;
   padding-top: 4px;
 }
-
 .grid {
   color: white;
   display: grid;
-  grid-template-columns: 200px 150px 100px;
+  grid-template-columns: 197px 121px 152px 0px;
   column-gap: 20px;
   row-gap: 10px;
   margin-top: 10px;
