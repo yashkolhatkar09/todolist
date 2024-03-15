@@ -8,8 +8,11 @@ export default class App extends Component {
     return (
       <div>
         <Navbr />
-        <h1 className="text-light md-5 ms-4 md-4">Todo List</h1>
-        <Box />
+        <div className="ms-2">
+          <h1 className="text-light md-5 ms-2 md-4 mt-4 ">Todo List</h1>
+
+          <Box/>
+        </div>
       </div>
     );
   }

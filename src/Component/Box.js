@@ -4,12 +4,12 @@ export default class Box extends Component {
   constructor() {
     super();
     this.state = {
+      index: 0,
       todo: "",
       date: "",
       todotext: [],
     };
   }
-
   TakeInputTodo = (event) => {
     this.setState({
       todo: event.target.value,
@@ -25,29 +25,37 @@ export default class Box extends Component {
   };
 
   Log = () => {
-    // Create JSX element for the new todo item
-    const newTodoText = (
-      <div className="grid">
-        <div className="col1">{this.state.todo}</div>
-        <div className="col1">{this.state.date}</div>
-        <div className="col1">
-          <button className="btn btn-danger">Delete</button>
-        </div>
-      </div>
-    );
-    // Add JSX element to the todotext array
+    const { todo, date, index } = this.state;
+
+    if (todo.trim() === "") {
+      return;
+    }
+
+    const [year, month, day] = date.split("-");
+
+    const reverseDate = `${day}-${month}-${year}`;
+
+    const newTodoItem = {
+      todo,
+      date : reverseDate,
+      index: this.state.index,
+    };
+
     this.setState((prevState) => ({
-      todotext: [...prevState.todotext, newTodoText],
+      index: prevState.index + 1,
+      todotext: [...prevState.todotext, newTodoItem],
       todo: "",
       date: "",
     }));
-
-    // this.empty();
   };
 
-  // empty = () => {
-  //   console.log("empty");
-  // };
+  Delete = (indexToDelete) => {
+    this.setState((prevState) => ({
+      todotext: prevState.todotext.filter(
+        (item) => item.index !== indexToDelete
+      ),
+    }));
+  };
 
   render() {
     return (
@@ -70,6 +78,7 @@ export default class Box extends Component {
                 onChange={this.TakeInputDate}
                 className="js-date-box css-date-box"
                 value={this.state.date}
+                date-date-format="dd-mm-yyyy"
               />
             </div>
             <div className="col">
@@ -84,17 +93,19 @@ export default class Box extends Component {
           </div>
         </div>
 
-        {/* <div className="grid">
-          <div className="col1"> {this.state.todo}</div>
-          <div className="col1">{this.state.date}</div>
-          <div className="col1">
-            <button className="btn btn-danger"> Delete </button>
-          </div>
-        </div> */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           {this.state.todotext.map((todo, index) => (
             <div key={index} className="grid">
-              {todo}
+              <div className="col1">{todo.todo}</div>
+              <div className="col1">{todo.date}</div>
+              <div className="col1">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => this.Delete(todo.index)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
