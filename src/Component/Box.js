@@ -56,6 +56,7 @@ export default class Box extends Component {
       index: prevState.index + 1,
       todotext: [...prevState.todotext, newTodoItem],
       todo: "",
+      time: "",
       date: "",
     }));
   };
